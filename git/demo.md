@@ -39,3 +39,207 @@ In the scripts section of our package.json file, we’ll add a command to let np
  - We’re also provided with a debugging log, npm-debug.log, with more detailed information on the task error. Once we have fixed all issues, npm will indicate success by returning an exit code of 0.
 - By understanding npm outputs, we can accurately detect when errors occur and quickly resolve them to ensure that your tasks are properly automated.
 NPM provides a wealth of information about its commands and how to use them, so make sure to check their documentation for any additional help or guidance needed.
+
+**Lab 1 - Create a Sample Workflow in your Github Repository that runs a echo command displaying your name when we push changes to the repository.**
+
+- Events
+```
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output a message
+        run: echo "Action Complete!"
+
+// Commit this change. 
+```
+
+**Lab 1 - Add a sample npm project to your github repo. Create a github action that would perform multiple steps as listed below:**
+- Checkout code
+- Install dependencies in ubuntu.
+- Run Jest test command on your repo. 
+
+## Create Artifact
+
+```
+- name: Upload artifact
+  uses: actions/upload-artifact@v3
+  with: 
+    name: assets
+    path: dist
+```
+
+**Lab1 - Creat Artifact based on the build results of your project and upload it to your github repository**
+
+## Add Unit Tests
+- You can use `yarn jest` command to run unit tests in your repo. 
+
+**Lab 1 - Create atleast 3 unit tests in your reository. You can use the sample calculator file in this repo. Run the tests using jest command.**
+
+**Lab 1 - Add test task in your package.json**
+
+## Creating GitHub Workflow action for testing
+
+```
+name: Unit Tests
+
+on:
+  # the 1st condition
+  workflow_run:                             # triggers when "build" runs and completes  
+    workflows: ["CI-CD"]
+    types:
+      - completed
+
+jobs:                                       # create job called "test" to perform Unit Tests 
+  test:  
+    runs-on: ubuntu-latest.                 # this job will run on the latest version of Ubuntu
+    steps:                                  # list of steps that need to be taken when Unit Tests is triggered 
+    - uses: actions/checkout@v3             # check out code from repository
+    - name: Install dependencies            # install all dependencies needed for Unit Tests (ex. Jest) 
+      run: npx yarn    
+    - uses: actions/download-artifact@v3    # download compiled code from build and make it available for Unit Tests 
+      with:
+        path: dist
+    - name: Run Tests                       # run Unit Tests using Jest
+      run: npx yarn test
+
+```
+
+**Lab 1 - Create a new workflow for runnning Unit tests after a build is done in GitHub actions**
+
+**Lab 1 - Add commit tag for the unit test workflow in your readme file**
+
+## Add pre-commit hook for your github
+
+- Add Husky as a prepare task in your package.json file.
+
+```
+"scripts": {
+    "lint": "npx eslint examples/*.js",
+    "style": "prettier --check examples/example2.js",
+    "format": "prettier --write examples/example2.js",
+    "test": "jest",
+    "prepare": "husky install"
+  }
+```
+- Run the below command to add a pre-commit hook.
+
+```
+npx husky add .husky/pre-commit "npm style"
+git add .husky/pre-commit
+git commit -m "Add styling"
+```
+
+**Lab 1 - Create a pre-commit hook for your repo to run styling check. You can use your linter if you want to.**
+
+## GitHub Action to run styling check 
+
+```
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: yarn    
+    - uses: actions/download-artifact@v2
+      with:
+        name: assets
+        path: dist
+    - name: Run Lint Checks
+      run: yarn style
+```
+
+## Automated Deployment
+
+- Creating action in github to deploy app
+
+```
+  deploy:
+    needs: build
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+```
+
+- For Kubernetes
+
+```
+- uses: Azure/k8s-deploy@v4
+  with:
+     namespace: 'myapp'
+     manifests: |
+        dir/manifestsDirectory
+     images: 'contoso.azurecr.io/myapp:${{ event.run_id }}'
+     imagepullsecrets: |
+        image-pull-secret1
+        image-pull-secret2
+```
+
+## GitHub secrets
+
+- below is the run command that accesses a secrets key
+
+```
+ - name: build
+        run: |
+          ./build.sh "${{ secrets.ASSETS_UPLOADER_KEY }}" "${{ secrets.ASSETS_UPLOADER_SECRET }}"
+        timeout-minutes: 15
+```
+
+- Secrets as environment variables
+
+```
+- name: build
+        run: |
+          ./build.sh
+        timeout-minutes: 15
+        env:
+        ASSETS_UPLOADER_SECRET: "${{ secrets.ASSETS_UPLOADER_SECRET }}"
+        ASSETS_UPLOADER_KEY: "${{ secrets.ASSETS_UPLOADER_KEY }}"
+```
+
+**Lab 1 - Setup a GitHub action in your repo to get a secret API Key as an environment variable**
+
+
+## HashiCorp Vault Example
+
+```
+  - name: Import Secrets
+         uses: hashicorp/vault-action@v2
+         id: secrets        
+         with:
+           url: https://vault.example.com/ 
+           role: content
+           method: jwt
+           secrets: |
+               kv/data/content/codio-ed-dev client_id;
+               kv/data/content/codio-ed-dev secret_id;
+       - name: Publish
+         uses: codio/codio-assignment-publish-action@master
+         with:
+           client-id: ${{ steps.secrets.outputs.client_id }}
+           secret-id: ${{ steps.secrets.outputs.secret_id }}
+           course-name: <Course Name>
+           assignment-name: <Assignment Name>
+           dir: ./
+           changelog: ${{ github.event.head_commit.message }}
+```
