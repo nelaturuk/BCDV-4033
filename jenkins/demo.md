@@ -92,3 +92,7 @@ tar -czvf archive01.tar.gz testarchive
 ```
 
 **Lab 2 - Create a artifact for Lab 1 build folder in Jenkins by using post-build task.**
+
+# Parameters
+
+**Lab 2 - Create a parameter for your job (any type). Execute a batch script to display the parameter value**
