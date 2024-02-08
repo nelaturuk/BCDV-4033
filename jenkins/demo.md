@@ -46,7 +46,8 @@ socketxp connect http://<local>:8080
 # Testing in Jenkins
 
 - Install Node JS and Jest plugin using Jenkins. 
-- Create JOb for testing Lab 1 repo project
+- Create JOb using Jenkins Pipeline file for testing Lab 1 repo project
+- There should be two stages: Build and test in this pipeline.
 
 **Lab 2 - Test your Lab 1 Repo  by adding Job for testing in Jenkins.**
 
