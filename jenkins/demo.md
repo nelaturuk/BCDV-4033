@@ -45,8 +45,8 @@ socketxp connect http://<local>:8080
 
 # Testing in Jenkins
 
-- Install Ant to test using Jenkins. 
-- Create JOb for using ANt
+- Install Node JS and Jest plugin using Jenkins. 
+- Create JOb for testing Lab 1 repo project
 
 **Lab 2 - Test your Lab 1 Repo  by adding Job for testing in Jenkins.**
 
