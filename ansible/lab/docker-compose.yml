@@ -1,0 +1,25 @@
+version: '3'
+services:
+      ansible:
+        container_name: ansible
+        image: ansible
+        tty: true
+        stdin_open: true
+        build:
+          context: ./ansible
+
+
+      remote-host-one:
+        container_name: node1
+        image: node1
+        build:
+          context: ./node1
+
+      remote-host-two:
+        container_name: node2
+        image: node2
+        build:
+          context: ./node1
+
+networks:
+      net:
