@@ -45,8 +45,9 @@ socketxp connect http://<local>:8080
 
 # Testing in Jenkins
 
-- Install Ant to test using Jenkins. 
-- Create JOb for using ANt
+- Install Node JS and Jest plugin using Jenkins. 
+- Create JOb using Jenkins Pipeline file for testing Lab 1 repo project
+- There should be two stages: Build and test in this pipeline.
 
 **Lab 2 - Test your Lab 1 Repo  by adding Job for testing in Jenkins.**
 
@@ -68,15 +69,7 @@ cd /nofolder
 - Uninstall ANT plugin and reinstall it. 
 - Install monitoring plugin. 
 
-# REST Api to Manage Jenkins
 
-- Get Token API for Jenkins. Get a new token. 
-- Save the token in a APIToKEN file. 
-- Get CRUMB /crumbissuer/api/xml 
--  I can use it as a secret text between me and Jenkins, which is the main function of crumb. Crumb is just a secret text to use when you treat with Jenkins through the command line or the REST API. 
-- Execute CRUM getting command. 
-- Build a Job using command line. 
-- 
 
 # Auditing and Credentials
 
@@ -99,3 +92,7 @@ tar -czvf archive01.tar.gz testarchive
 ```
 
 **Lab 2 - Create a artifact for Lab 1 build folder in Jenkins by using post-build task.**
+
+# Parameters
+
+**Lab 2 - Create a parameter for your job (any type). Execute a batch script to display the parameter value**
