@@ -165,6 +165,18 @@ ansible-playbook node-role.yaml
 
 ## Ansible Vault
 
-`ansible-vault`
+```
+ansible-vault create vault.yaml 
+
+// Enter data into vault.yaml 
+
+cat vault.yaml
+
+ansible-vault view vault.yaml
+
+ansible-vault edit vault.yaml
+
+ansible-vault rekey vault.yaml
+```
 
 **Lab3 - Use the example node.yaml and clone the Lab 1 repo to both the nodes. Build the node modules** 
