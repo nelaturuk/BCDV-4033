@@ -117,23 +117,13 @@ jobs:                                       # create job called "test" to perfor
 
 ## Add pre-commit hook for your github
 
-- Add Husky as a prepare task in your package.json file.
-
 ```
-"scripts": {
-    "lint": "npx eslint examples/*.js",
-    "style": "prettier --check examples/example2.js",
-    "format": "prettier --write examples/example2.js",
-    "test": "jest",
-    "prepare": "husky install"
-  }
-```
-- Run the below command to add a pre-commit hook.
-
-```
-npx husky add .husky/pre-commit "npm style"
-git add .husky/pre-commit
-git commit -m "Add styling"
+npm install --save-dev husky
+npx husky init
+// Add pre-commit file in .husky folder
+// Add below command into the pre-commit file
+echo \" [Husky] pre-commit \"
+git commit -m "Keep calm and commit"
 ```
 
 **Lab 1 - Create a pre-commit hook for your repo to run styling check. You can use your linter if you want to.**
