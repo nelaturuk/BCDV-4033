@@ -15,11 +15,11 @@ services:
         build:
           context: ./node1
 
-      remote-host-two:
-        container_name: node2
-        image: node2
-        build:
-          context: ./node1
+      # remote-host-two:
+      #   container_name: node2
+      #   image: node2
+      #   build:
+      #     context: ./node1
 
 networks:
       net:

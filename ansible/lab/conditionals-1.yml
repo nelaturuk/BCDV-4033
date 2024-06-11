@@ -1,0 +1,28 @@
+---
+# Playbook name
+- name: Install Softwares
+
+  # Target hosts for the playbook
+  hosts: all
+
+  # Variables used in the playbook
+  vars:
+    packages:
+      - name: nginx
+        required: True
+      - name: mysql
+        required: False
+      - name: apache
+        required: False
+
+  # Tasks to be executed on the target hosts
+  tasks:
+    # Task to install packages on Debian systems
+    - name: Install packages on Debian
+      apt:
+        name: "{{ item.name }}"
+        state: present
+      # Loop over the packages variable
+      loop: "{{ packages }}"
+      # Install only if required property is set to true
+      when: item.required == True

@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - role: geerlingguy.postgresql
+      vars:
+        postgresql_users:
+          - name: christina

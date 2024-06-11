@@ -1,9 +1,15 @@
----
-- hosts: dev
+- name: Install NGINX
+  hosts: all
+  become: yes
   tasks:
-    - name: install apache2
-      action: apt name=apache2 state=present
-      when: ansible_os_family == "Debian"
-    - name: install httpd
-      action: yum name=httpd state=present
-      when: ansible_os_family == "RedHat"
+    - name: Install NGINX on Red Hat
+      yum:
+        name: nginx
+        state: present
+      when: ansible_os_family == "RedHat" or ansible_os_family == "Suse"
+    
+    - name: Install NGINX on Debian
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian" and ansible_distribution_version == "20.04"

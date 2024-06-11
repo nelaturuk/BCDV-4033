@@ -1,9 +1,13 @@
 ---
 - hosts: dev
+  become: yes
+  user: test
   tasks:
-    - name: install apache2
-      action: apt name=apache2 state=present
+    - name: install apache
+      action: apt name=apache state=present
       notify: host static webpage
   handlers:
     - name: host static webpage
-      script: hello.sh
+      service:
+         name: httpd
+         state: restarted
