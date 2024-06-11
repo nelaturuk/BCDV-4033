@@ -147,11 +147,11 @@ ansible-playbook create-file-dev.yml
 ```
 ansible-galaxy init <my_role>
 
-ansible-galaxy install Jating7413.node -p <folder>
+ansible-galaxy install geerlingguy.postgresql
 
 cd <folder>
 
-ansible-playbook node-role.yaml 
+ansible-playbook postgres.yaml 
 ```
 
 
