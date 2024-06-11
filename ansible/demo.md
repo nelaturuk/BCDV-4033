@@ -2,9 +2,12 @@
 
 - Since we do not have a VM environment to run ansible. We will use docker containers to simulate the environment. 
 
-- You will set up using the docker compose yaml, 3 nodes: 1 control node, 2 remote host nodes. 
+- You will set up using the docker compose yaml, 3 nodes: 1 control node, 2 remote host nodes.
+- Clone this repository. 
 
 ```
+cd /ansible/lab
+docker compose up -d
 docker exec -it <containerid_ansible> bash
 
 // Check if ansible is installed
