@@ -31,3 +31,8 @@ jobs:
     - run: npm ci
     - run: cd git && npm run build --if-present
     - run: cd git && npm test
+    - uses: actions/upload-artifact@v4.6.0
+      with: 
+        path: ./git/index.js
+        name: test-winter2025artifact
+      
