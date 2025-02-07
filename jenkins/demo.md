@@ -53,6 +53,8 @@ socketxp connect http://<local>:8080
 
 # Notification in Jenkins
 
+- Setup smtp4dev docker in your local system
+- Configure Email Extensions plugin in System under Manage Jenkins
 - Enable email notification. 
 - Enable app passwords for Google. 
 - Fail a job
