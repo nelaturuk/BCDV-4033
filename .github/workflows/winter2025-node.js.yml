@@ -29,5 +29,5 @@ jobs:
         cache: 'npm'
     - run: cd git
     - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - run: cd git && npm run build --if-present
+    - run: cd git && npm test
