@@ -1,4 +1,4 @@
-Test webhook - winter 2025
+Test webhook
 
 Adding new badge
 
