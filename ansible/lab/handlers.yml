@@ -1,13 +1,23 @@
 ---
-- hosts: dev
+- name: Example Ansible playbook
+  hosts: all
   become: yes
-  user: test
   tasks:
-    - name: install apache
-      action: apt name=apache state=present
-      notify: host static webpage
-  handlers:
-    - name: host static webpage
-      service:
-         name: httpd
-         state: restarted
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+      notify: Start Apache
+
+    # other regular tasks…
+
+  handlers:          # handlers
+    - name: Start Apache
+      shell: /usr/sbin/apache2ctl start
+      args:
+        creates: /var/run/apache2/apache2.pid
+
+    - name: Reload Apache
+      shell: /usr/sbin/apache2ctl -k graceful
+      args:
+        creates: /var/run/apache2/apache2.pid
