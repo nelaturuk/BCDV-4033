@@ -151,6 +151,9 @@ ansible-playbook create-file-dev.yml
 ## Create Ansible role
 
 ```
+// Search for roles in galaxy
+ansible-galaxy role search elasticsearch --author geerlingguy
+
 ansible-galaxy init <my_role>
 
 ansible-galaxy install geerlingguy.postgresql
