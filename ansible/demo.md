@@ -55,6 +55,9 @@ ansible-inventory -i inventory.txt --list
 
 ansible all -i inventory.txt -m ping
 
+// In the docker the default location for inventory is /etc/ansible/hosts
+// Enter the invenotry list in hosts file and you do not have to use -i option with any commands
+
 ```
 
 **Lab 3 - You should be able to connect to the hosts at this stage successfully.**
