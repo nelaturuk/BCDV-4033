@@ -109,7 +109,7 @@ ansible all -m file -a "path=~/tmp-file state=touch"
 ansible all -m file -a "path=~/tmp-file state=absent"
 
 // To list all the modules
-ansible-doc -l 
+ansible-doc -l | grep shell
 ```
 
 **Lab3 - Try to create a directory uisng the ad-hoc command. PResent screenshots of the sucessful ansible run and directory in the nodes.**
