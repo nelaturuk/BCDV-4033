@@ -1,0 +1,7 @@
+---
+- hosts: dev
+  tasks:
+    - name: create a file
+      file: 
+        path: /tmp/file-playbook1
+        state: touch
