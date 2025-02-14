@@ -3,7 +3,7 @@
 - name: Install Softwares
 
   # Target hosts for the playbook
-  hosts: all
+  hosts: host1
 
   # Variables used in the playbook
   vars:
